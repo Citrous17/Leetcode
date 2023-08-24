@@ -2,18 +2,11 @@ class Solution {
 public:
     // Kyle Stallings
     // Aug 24 2023
-    // There seems to be an optimal and easy solution for this problem. I will start with an easy one
+    // This is my 2nd attempt, and it is based on the top answer
     vector<int> distributeCandies(int candies, int num_people) {
-        int counter = 1;
         vector<int> people(num_people);
-        while(candies >= counter || candies > 0) {
-            for(int i = 0; i < num_people; i++) {
-                if(candies < counter) { people[i] += candies; candies = 0; break;}
-                people[i] += counter;
-                candies-=counter;
-                counter++;
-            }
-        }
+        for(int i = 0; candies > 0; ++i, candies -= i)
+            people[i % num_people] += min(i + 1, candies);
         return people;
     }
 };
